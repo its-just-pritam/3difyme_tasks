@@ -165,16 +165,23 @@ write_obj(write_path, vertices, faces, textures, vertex_normals, parameter_space
 
 img = cv.imread(img_path)
 
-list_of_dots = []
+for dot in textures:
+    x = img.shape[1]*dot[0]
+    y = img.shape[0]*(1-dot[1])
+    cv.circle(img, (int(x),int(y)), 2, (0,0,255), thickness=2)
+
 for vt in faces['vt']:
-    for item in vt:
-        list_of_dots.append(item-1)
+    for i in range(len(vt)):
+        for j in range(i):
+            if vt[i] != vt[j]:
+                #print(vt[i], vt[j])
+                x1 = textures[vt[i]-1][0]*img.shape[1]
+                y1 = (1-textures[vt[i]-1][1])*img.shape[0]
+                x2 = textures[vt[j]-1][0]*img.shape[1]
+                y2 = (1-textures[vt[j]-1][1])*img.shape[0]
+                cv.line(img, (int(x1),int(y1)), (int(x2),int(y2)), (255,255,255), thickness=1)
 
-list_of_dots = list(set(list_of_dots))
-
-for dot in list_of_dots:
-    cv.circle(img, (int(img.shape[1]*textures[dot][0]),int(img.shape[0]*textures[dot][1])), 2, (0,0,255), thickness=2)
-
+#cv.circle(img, (int(img.shape[1]*textures[dot][0]),int(img.shape[0]*textures[dot][1])), 2, (0,0,255), thickness=2)
 cv.imwrite('messi_texture.png', img)
 cv.imshow('Messi', img)
 cv.waitKey(2000)
