@@ -37,7 +37,7 @@ def draw_delauany(image, subdiv, poly_path):
 
 # Main function of the module
 
-def triangulation(points, image, img_path):
+def triangulation(points, image):
 
     rect = (0,0,image.shape[0], image.shape[1])
     subdiv = cv.Subdiv2D(rect)
@@ -50,8 +50,8 @@ def triangulation(points, image, img_path):
 
     poly_path = mplPath.Path(np.array(polygon_points))
     triangles = draw_delauany(image, subdiv, poly_path)
-    # cv.imshow('Triangulated Image', image)
-    # cv.waitKey(0)
-    # cv.destroyAllWindows()
+    cv.imshow('Triangulated Image', image)
+    cv.waitKey(0)
+    cv.destroyAllWindows()
 
     return triangles

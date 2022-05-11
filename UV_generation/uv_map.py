@@ -46,7 +46,7 @@ def UV_Map(src_img_path, source_path, target_path):
         target_image_points.append((x,y))
 
     img_copy = src_img.copy()
-    source_triangles = triangulation(source_image_points, src_img, src_img_path)
+    source_triangles = triangulation(source_image_points, src_img)
 
     for T in source_triangles:
 
