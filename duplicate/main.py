@@ -25,6 +25,7 @@ if __name__=="__main__":
         
     print("Args: ", sys.argv)
     # Select and delete all objects to start with a clean space
+    bpy.ops.object.mode_set( mode = 'OBJECT' )
     bpy.ops.object.select_all(action='SELECT')
     bpy.ops.object.delete(use_global=False, confirm=False)
 

@@ -76,12 +76,16 @@ if __name__=="__main__":
     print(target_armature.pose.bones["mixamorig:LeftToeBase"].matrix)
     print(target_armature.pose.bones["mixamorig:LeftToeBase"].matrix_basis)
         
+    act_arm = bpy.context.object
+    bpy.ops.object.mode_set(mode='EDIT')
+
     for curr in source_armature.pose.bones:
         
         if curr.name != root:
             src_trans_matrix = curr.matrix @ curr.parent.matrix.inverted_safe()
-            target_armature.pose.bones[curr.name].matrix = src_trans_matrix @ target_armature.pose.bones[curr.name].parent.matrix
+            act_arm.data.edit_bones[curr.name].matrix = src_trans_matrix @ act_arm.data.edit_bones[curr.name].parent.matrix
     
+    bpy.ops.object.mode_set(mode='OBJECT')
 #    DFS(source_armature, target_armature, [root])
         
     print(source_armature.pose.bones["mixamorig:LeftToeBase"].matrix)
