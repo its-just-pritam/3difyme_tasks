@@ -1,9 +1,28 @@
-# Function to read from an obj file
+'''
+RUN COMMAND:
+python read.py face.obj
+'''
 
-def read_obj(path):
+import sys
 
-    file = open(path,'r')
-    str_Array = file.readlines()
+'''
+Reads an obj file to extract all parameters
+
+INPUT:
+
+1. Input obj file
+
+OUTPUT:
+
+1. Vertices
+2. Faces
+3. Textures
+4. Vertex_normals
+5. Parameter space vertices
+6. Lines
+'''
+
+def read_obj(str_Array):
 
     vertices = []
     faces = {
@@ -67,5 +86,20 @@ def read_obj(path):
                     line.append(int(word))
             lines.append(line)
     
-    file.close()
     return vertices, faces, textures, vertex_normals, parameter_space_vertices, lines
+
+
+'''
+Main function takes 1 argument from command line:
+
+1. Obj file path
+'''
+
+if __name__ == '__main__':
+
+    obj_path = sys.argv[1]
+    file = open(obj_path,'r')
+    input_obj = file.readlines()
+    file.close()
+
+    vertices, faces, textures, vertex_normals, parameter_space_vertices, lines = read_obj(input_obj)
